@@ -6,7 +6,6 @@
     <owners>janniksam</owners>
     <licenseUrl>todo</licenseUrl>
     <projectUrl>https://github.com/janniksam/Kinoheld</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/Squirrel/Squirrel.Windows/master/docs/artwork/Squirrel-Logo-Square.png</iconUrl>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="GraphQL.Client" version="1.0.3" exclude="Build,Analyzers" />
