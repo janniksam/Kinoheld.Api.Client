@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Client for the Kinoheld API</Title>
+    <Description>A basic client implementation for the GraphQl API provided by Kinoheld.de</Description>
+    <Authors>janniksam</Authors>
+    <Company>janniksam</Company>
+    <PackageProjectUrl>https://github.com/janniksam/Kinoheld</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright janniksam © 2018</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
