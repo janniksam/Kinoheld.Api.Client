@@ -1,6 +1,11 @@
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
+
+skip_commits:
+  files:
+    - '**/*.md'
+
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
