@@ -24,7 +24,7 @@ for:
 -
   branches:
     only:
-      - master
+      - dev
 
   dotnet_csproj:
     patch: true
