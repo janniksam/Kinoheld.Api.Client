@@ -29,8 +29,8 @@ for:
   dotnet_csproj:
     patch: true
     file: '**\*.csproj'
-    version: '{version}-build{build}'
-    package_version: '{version}-build{build}'
+    version: '{version}-alpha'
+    package_version: '{version}-alpha'
     assembly_version: '{version}'
-    file_version: '{version}.{build}'
-    informational_version: '{version} Build {build}'
+    file_version: '{version}'
+    informational_version: '{version} (Alpha)'
