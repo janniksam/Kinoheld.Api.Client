@@ -1,0 +1,35 @@
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{build}'
+  informational_version: '{version}'
+before_build:
+- cmd: dotnet restore Kinoheld.Api.Client\Kinoheld.Api.Client.sln
+build:
+  verbosity: minimal
+after_build:
+- cmd: dotnet pack Kinoheld.Api.Client\Kinoheld.Api.Client\Kinoheld.Api.Client.csproj
+artifacts:
+- path: '**\*.nupkg'
+deploy: off
+
+for:
+-
+  branches:
+    only:
+      - dev
+
+  dotnet_csproj:
+    patch: true
+    file: '**\*.csproj'
+    version: '{version}-alpha'
+    package_version: '{version}-alpha'
+    assembly_version: '{version}'
+    file_version: '{version}'
+    informational_version: '{version} (pre-release)'
