@@ -9,11 +9,11 @@
     <PackageProjectUrl>https://github.com/janniksam/Kinoheld</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Copyright>Copyright janniksam © 2018</Copyright>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="GraphQL.Client" Version="1.0.3" />
     <PackageReference Include="GraphQL.Common" Version="1.0.3" />
   </ItemGroup>
-
 </Project>

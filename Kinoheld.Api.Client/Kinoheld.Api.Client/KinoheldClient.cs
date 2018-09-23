@@ -58,5 +58,16 @@ namespace Kinoheld.Api.Client
 
             return m_jsonWorker.ConvertToShows(jsonResult);
         }
+
+        public async Task<CitySearchResult> GetCities(string searchTerm, int limit)
+        {
+            var jsonResult = await m_client.GetCities(searchTerm, limit);
+            if (jsonResult == null)
+            {
+                return new CitySearchResult();
+            }
+
+            return m_jsonWorker.ConvertToCitySearchResult(jsonResult);
+        }
     }
 }

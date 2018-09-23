@@ -30,7 +30,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
 
         public static string OperationName()
         {
-            return "shows";
+            return "SearchShow";
         }
 
         public static dynamic Parameters(int cinemaId, DateTime? date)

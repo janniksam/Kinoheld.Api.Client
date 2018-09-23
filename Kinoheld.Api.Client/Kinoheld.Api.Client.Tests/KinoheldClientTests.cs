@@ -51,6 +51,16 @@ namespace Kinoheld.Api.Client.Tests
         }
 
         [Test]
+        public async Task GetCities_ReturnEmptyResultWhenNoCitiesWereFound()
+        {
+            IKinoheldClient client = new KinoheldClient(m_kinoheldApiClientMock.Object, m_kinoheldJsonWorkerMock.Object);
+            var result= await client.GetCities("aurick");
+            Assert.NotNull(result);
+            Assert.AreEqual(0, result.Cities.Count);
+            Assert.AreEqual(0, result.PostalCodes.Count);
+        }
+
+        [Test]
         public async Task GetShows_ReturnEmptyListWhenNoShowsWereFound()
         {
             IKinoheldClient client = new KinoheldClient(m_kinoheldApiClientMock.Object, m_kinoheldJsonWorkerMock.Object);

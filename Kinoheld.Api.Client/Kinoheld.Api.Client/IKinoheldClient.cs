@@ -25,5 +25,13 @@ namespace Kinoheld.Api.Client
         /// <param name="date">The date on which the shows should run</param>
         /// <returns>List of all matching cinemas</returns>
         Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null);
+
+        /// <summary>
+        /// Searches for a city
+        /// </summary>
+        /// <param name="searchTerm">Search Term (e.g. postal code)</param>
+        /// <param name="limit">Maximum number of results</param>
+        /// <returns></returns>
+        Task<CitySearchResult> GetCities(string searchTerm, int limit = 10);
     }
 }

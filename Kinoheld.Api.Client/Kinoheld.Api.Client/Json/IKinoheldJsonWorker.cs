@@ -9,5 +9,7 @@ namespace Kinoheld.Api.Client.Json
         IEnumerable<Cinema> ConvertToCinemas(JObject jsonResult);
 
         IEnumerable<Show> ConvertToShows(JObject jsonResult);
+
+        CitySearchResult ConvertToCitySearchResult(JObject jsonResult);
     }
 }

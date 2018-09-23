@@ -17,31 +17,19 @@ namespace Kinoheld.Api.Client.Tests.Api
         }
 
         [Test]
-        public void GetCinemas_ThrowsWhenCityNotFilled()
+        public async Task GetCities_ReturnsSomeCitiesWithPostalCode()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                var o = await client.GetCinemas(null, null, 15);
-            });
-            Assert.ThrowsAsync<ArgumentNullException>(async () =>
-            {
-                var o = await client.GetCinemas(string.Empty, null, 15);
-            });
+            var cities = await client.GetCities("266", 10);
+            Assert.IsNotNull(cities);
         }
 
         [Test]
-        public void GetCinemas_ThrowsWhenDistanceSmallerOrEqual0()
+        public async Task GetCities_ReturnsSomeCitiesWithTerm()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                var o = await client.GetCinemas("aurich", null, -1);
-            });
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                var o = await client.GetCinemas("aurich", null, 0);
-            });
+            var cities = await client.GetCities("aur", 10);
+            Assert.IsNotNull(cities);
         }
 
         [Test]
@@ -59,20 +47,6 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             var cinemas = await client.GetShows(2127, null);
             Assert.IsNotNull(cinemas);
-        }
-
-        [Test]
-        public void GetCinemas_ThrowsWhenIdSmallerOrEqual0()
-        {
-            IKinoheldApiClient client = new KinoheldApiClient();
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                var o = await client.GetShows(0, null);
-            });
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
-            {
-                var o = await client.GetShows(-1, null);
-            });
         }
     }
 }

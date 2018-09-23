@@ -25,7 +25,7 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
 
         public static string OperationName()
         {
-            return "cinemas";
+            return "CinemaSearch";
         }
 
         public static dynamic Parameters(string searchTerm, string city, int distance)

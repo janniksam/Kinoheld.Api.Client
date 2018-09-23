@@ -40,5 +40,27 @@ namespace Kinoheld.Api.Client.Json
             var shows = selectToken.ToObject<List<Show>>();
             return shows;
         }
+
+        public CitySearchResult ConvertToCitySearchResult(JObject jsonResult)
+        {
+            if (jsonResult == null)
+            {
+                throw new ArgumentNullException(nameof(jsonResult));
+            }
+            var cities = jsonResult.SelectToken("cities");
+            if (cities == null)
+            {
+                throw new InvalidCastException($"The given {nameof(jsonResult)} contains a format, that cannot be recognised.");
+            }
+
+            var postcodes = jsonResult.SelectToken("postcodes");
+            if (postcodes == null)
+            {
+                throw new InvalidCastException($"The given {nameof(jsonResult)} contains a format, that cannot be recognised.");
+            }
+
+            var result = jsonResult.ToObject<CitySearchResult>();
+            return result;
+        }
     }
 }
