@@ -7,7 +7,7 @@ namespace Kinoheld.Api.Client.Api.Queries
         public static string Query()
         {
             return @"
-query SearchCities($searchTerm String, $limit Int) {
+query SearchCities($searchTerm: String!, $limit: Int) {
    cities(search: $searchTerm, limit: $limit) {
      name
      detailUrl

@@ -40,5 +40,16 @@ namespace Kinoheld.Api.Client.Json
             var shows = selectToken.ToObject<List<Show>>();
             return shows;
         }
+
+        public CitySearchResult ConvertToCitySearchResult(JObject jsonResult)
+        {
+            if (jsonResult == null)
+            {
+                throw new ArgumentNullException(nameof(jsonResult));
+            }
+
+            var result = jsonResult.ToObject<CitySearchResult>();
+            return result;
+        }
     }
 }
