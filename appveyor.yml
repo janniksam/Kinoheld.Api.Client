@@ -4,7 +4,7 @@ platform: Any CPU
 
 skip_commits:
   files:
-    - '**/*.md'
+    - '*.md'
 
 dotnet_csproj:
   patch: true
