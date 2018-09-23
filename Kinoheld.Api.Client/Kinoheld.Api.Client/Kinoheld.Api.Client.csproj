@@ -11,6 +11,10 @@
     <Copyright>Copyright janniksam © 2018</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="GraphQL.Client" Version="1.0.3" />
     <PackageReference Include="GraphQL.Common" Version="1.0.3" />
