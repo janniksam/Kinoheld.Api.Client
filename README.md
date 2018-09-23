@@ -15,17 +15,19 @@ It currently supports
  
 ### Search for a cinema
 
-    // Get all cinemas that are near the city "Aurich"
-    IKinoheldClient client = new KinoheldClient();
-    var cinemas = await client.GetCinemas("aurich");
-    
-    // Search for cinemas near Aurich that contain the term 'autokino'
-    IKinoheldClient client = new KinoheldClient();
-    var cinemas = await client.GetCinemas("aurich", "autokino");
+```cs
+// Get all cinemas that are near the city "Aurich"
+var client = new KinoheldClient();
+var cinemas = await client.GetCinemas("aurich");
 
+// Search for cinemas near Aurich that contain the term 'autokino'
+var client = new KinoheldClient();
+var cinemas = await client.GetCinemas("aurich", "autokino");
+ ```
 ### Retrieve information about upcoming movies
 
-    // Retrieve all movies, that will be played tommorow
-    IKinoheldClient client = new KinoheldClient();
-    var upcoming = await client.GetShows(cinema.Id, DateTime.Today.AddDays(1));
-    
+```cs
+// Retrieve all movies, that will be played tommorow
+var client = new KinoheldClient();
+var upcoming = await client.GetShows(cinema.Id, DateTime.Today.AddDays(1));   
+ ```
