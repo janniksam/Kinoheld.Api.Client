@@ -12,7 +12,12 @@ It currently supports
 
 ## Basis usage:
  
+### Search for a cinema
+
     // Get all cinemas that are near the city "Aurich"
     IKinoheldClient client = new KinoheldClient();
     var cinemas = await client.GetCinemas("aurich");
     
+    // Search for cinemas near Aurich that contain the term 'autokino'
+    IKinoheldClient client = new KinoheldClient();
+    var cinemas = await client.GetCinemas("aurich", "autokino");
