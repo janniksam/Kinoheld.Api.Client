@@ -29,7 +29,7 @@ namespace Kinoheld.Api.Client.Api
                 {
                     Query = SearchCinemaQuery.Query(),
                     OperationName = SearchCinemaQuery.OperationName(),
-                    Variables = SearchCinemaQuery.Parameters(string.Empty, city, distance)
+                    Variables = SearchCinemaQuery.Parameters(searchTerm, city, distance)
                 };
 
                 var response = await client.PostAsync(cinemaRequest);

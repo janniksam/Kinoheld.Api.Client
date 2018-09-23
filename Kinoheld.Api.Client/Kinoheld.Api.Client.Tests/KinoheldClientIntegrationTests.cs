@@ -8,12 +8,30 @@ namespace Kinoheld.Api.Client.Tests
     public class KinoheldClientIntegrationTests
     {
         [Test]
-        public async Task GetCinemas_ReturnsSomeCinemas()
+        public async Task GetCinemas_ReturnsSomeCinemasInAurich()
         {
             IKinoheldClient client = new KinoheldClient();
             var cinemas = await client.GetCinemas("aurich");
             Assert.AreNotEqual(0, cinemas.Count());
             Assert.True(cinemas.Any(p => p.Name == "Kino Aurich"), "Could not find Kino Aurich in the response list.");
+        }
+
+        //[Test]
+        //public async Task GetCinemas_ReturnsSomeCinemasPostalCode26603()
+        //{
+        //    IKinoheldClient client = new KinoheldClient();
+        //    var cinemas = await client.GetCinemas("26603");
+        //    Assert.AreNotEqual(0, cinemas.Count());
+        //    Assert.True(cinemas.Any(p => p.Name == "Kino Aurich"), "Could not find Kino Aurich in the response list.");
+        //}
+
+        [Test]
+        public async Task GetCinemas_ReturnsAutokinoAurichWhenSearchtermIsAutokino()
+        {
+            IKinoheldClient client = new KinoheldClient();
+            var cinemas = await client.GetCinemas("aurich", "autokino");
+            Assert.AreNotEqual(0, cinemas.Count());
+            Assert.True(cinemas.Any(p => p.Name == "Autokino Aurich-Tannenhausen"), "Could not find Autokino Aurich-Tannenhausen in the response list.");
         }
 
         [Test]
