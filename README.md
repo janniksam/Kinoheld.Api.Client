@@ -21,3 +21,10 @@ It currently supports
     // Search for cinemas near Aurich that contain the term 'autokino'
     IKinoheldClient client = new KinoheldClient();
     var cinemas = await client.GetCinemas("aurich", "autokino");
+
+### Retrieve information about upcoming movies
+
+    // Retrieve all movies, that will be played tommorow
+    IKinoheldClient client = new KinoheldClient();
+    var upcoming = await client.GetShows(cinema.Id, DateTime.Today.AddDays(1));
+    
