@@ -6,8 +6,8 @@
 
 ## Description
 
-Kinoheld API Client is a client for the GraphQL-API, which is provided by the kinoheld.de.
-It currently supports
+Kinoheld API Client is a client for the GraphQL-API, which is provided by kinoheld.de.
+The client currently supports:
 - Searching a cinema by giving a city, a search term and a maximum distance between the city and the cinema.
 - Retrieving information for movies that are currently played / will be played at the given cinema.
 - Searching for city by giving a searchterm (e.g. a postal code)
