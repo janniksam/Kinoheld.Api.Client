@@ -1,4 +1,4 @@
-version: 1.0.0.{build}
+version: 1.0.{build}
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
@@ -33,4 +33,4 @@ for:
     package_version: '{version}-alpha'
     assembly_version: '{version}'
     file_version: '{version}'
-    informational_version: '{version} (Alpha)'
+    informational_version: '{version} (pre-release)'
