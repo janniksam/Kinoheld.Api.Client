@@ -9,5 +9,7 @@ namespace Kinoheld.Api.Client.Api
         Task<JObject> GetCinemas(string city, string searchTerm, int distance);
 
         Task<JObject> GetShows(int cinemaId, DateTime? date);
+
+        Task<JObject> GetCities(string searchTerm, int limit);
     }
 }

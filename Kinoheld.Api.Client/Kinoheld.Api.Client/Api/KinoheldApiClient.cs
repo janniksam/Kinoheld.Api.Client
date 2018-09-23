@@ -13,7 +13,7 @@ namespace Kinoheld.Api.Client.Api
 
         public async Task<JObject> GetCinemas(string city, string searchTerm, int distance)
         {
-            if (string.IsNullOrEmpty(city))
+            if (string.IsNullOrEmpty(city?.Trim()))
             {
                 throw new ArgumentNullException(nameof(city));
             }
@@ -51,6 +51,32 @@ namespace Kinoheld.Api.Client.Api
                     Query = GetShowsQuery.Query(),
                     OperationName = GetShowsQuery.OperationName(),
                     Variables = GetShowsQuery.Parameters(cinemaId, date)
+                };
+
+                var response = await client.PostAsync(cinemaRequest);
+                return response?.Data;
+            }
+        }
+
+        public async Task<JObject> GetCities(string searchTerm, int limit)
+        {
+            if (string.IsNullOrEmpty(searchTerm?.Trim()))
+            {
+                throw new ArgumentNullException(nameof(searchTerm));
+            }
+
+            if (limit <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(limit), $"{nameof(limit)} needs to be bigger than 0");
+            }
+
+            using (var client = GetClient())
+            {
+                var cinemaRequest = new GraphQLRequest
+                {
+                    Query = GetCitiesQuery.Query(),
+                    OperationName = GetCitiesQuery.OperationName(),
+                    Variables = GetCitiesQuery.Parameters(searchTerm, limit)
                 };
 
                 var response = await client.PostAsync(cinemaRequest);
