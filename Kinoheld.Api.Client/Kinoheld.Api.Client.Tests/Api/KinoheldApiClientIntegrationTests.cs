@@ -17,7 +17,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         }
 
         [Test]
-        public async Task GetCinemas_ReturnsSomeCitiesWithPostalCode()
+        public async Task GetCities_ReturnsSomeCitiesWithPostalCode()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
             var cities = await client.GetCities("266", 10);
@@ -25,7 +25,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         }
 
         [Test]
-        public async Task GetCinemas_ReturnsSomeCitiesWithTerm()
+        public async Task GetCities_ReturnsSomeCitiesWithTerm()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
             var cities = await client.GetCities("aur", 10);

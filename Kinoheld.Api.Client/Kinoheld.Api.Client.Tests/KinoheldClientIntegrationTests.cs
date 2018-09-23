@@ -48,5 +48,35 @@ namespace Kinoheld.Api.Client.Tests
             var shows = await client.GetShows(999999);
             Assert.AreEqual(0, shows.Count());
         }
+
+        [Test]
+        public async Task GetCities_ReturnsNoCitiesWhenNothingHasBeenFound()
+        {
+            IKinoheldClient client = new KinoheldClient();
+            var cities = await client.GetCities("999999");
+            Assert.AreEqual(0, cities.Cities.Count);
+            Assert.AreEqual(0, cities.PostalCodes.Count);
+        }
+
+        [Test]
+        public async Task GetCities_ReturnsAurichWith26603()
+        {
+            IKinoheldClient client = new KinoheldClient();
+            var cities = await client.GetCities("26603");
+            Assert.AreEqual(0, cities.Cities.Count);
+            Assert.AreEqual(1, cities.PostalCodes.Count);
+            Assert.AreEqual("Aurich", cities.PostalCodes[0].City.Name);
+            Assert.AreEqual(26603, cities.PostalCodes[0].Code);
+        }
+
+        [Test]
+        public async Task GetCities_ReturnsAurichWithAuric()
+        {
+            IKinoheldClient client = new KinoheldClient();
+            var cities = await client.GetCities("auric");
+            Assert.AreEqual(1, cities.Cities.Count);
+            Assert.AreEqual(0, cities.PostalCodes.Count);
+            Assert.AreEqual("Aurich", cities.Cities[0].Name);
+        }
     }
 }
