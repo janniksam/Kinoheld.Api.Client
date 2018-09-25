@@ -9,13 +9,14 @@ namespace Kinoheld.Api.Client.Api.Queries
         private readonly string m_searchTerm;
         private readonly string m_city;
         private readonly int m_distance;
-        private GetCinemasDynamicQuery m_dynamicQuery;
+        private readonly GetCinemasDynamicQuery m_dynamicQuery;
 
         public GetCinemasQuery(string searchTerm, string city, int distance, GetCinemasDynamicQuery dynamicQuery)
         {
             m_searchTerm = searchTerm;
             m_city = city;
             m_distance = distance;
+            m_dynamicQuery = dynamicQuery;
         }
 
         protected override string Query()
@@ -36,34 +37,34 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
             }
 
             var builder = new StringBuilder();
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.Id) == GetCinemasDynamicQuery.Id)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.Id))
             {
                 builder.AppendLine("            id");
             }
 
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.Name) == GetCinemasDynamicQuery.Name)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.Name))
             {
                 builder.AppendLine("            name");
             }
 
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.Street) == GetCinemasDynamicQuery.Street)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.Street))
             {
                 builder.AppendLine("            street");
             }
 
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.City) == GetCinemasDynamicQuery.City)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.City))
             {
                 builder.AppendLine("            city {");
                 builder.AppendLine("                name");
                 builder.AppendLine("            }");
             }
 
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.Distance) == GetCinemasDynamicQuery.Distance)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.Distance))
             {
                 builder.AppendLine("            distance");
             }
 
-            if ((m_dynamicQuery & GetCinemasDynamicQuery.DetailUrl) == GetCinemasDynamicQuery.DetailUrl)
+            if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.DetailUrl))
             {
                 builder.AppendLine("            detailUrl {");
                 builder.AppendLine("                absoluteUrl");

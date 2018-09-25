@@ -25,9 +25,9 @@ namespace Kinoheld.Api.Client
         /// </summary>
         /// <param name="cinemaId">The Id of the cinema</param>
         /// <param name="date">The date on which the shows should run</param>
-        /// <param name="getShowsDynamicQuery"></param>
+        /// <param name="dynamicQuery"></param>
         /// <returns>List of all matching cinemas</returns>
-        Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery getShowsDynamicQuery = GetShowsDynamicQuery.Full);
+        Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full);
 
         /// <summary>
         /// Searches for a city

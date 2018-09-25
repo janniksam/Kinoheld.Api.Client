@@ -37,29 +37,33 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             }
 
             var builder = new StringBuilder();
-            if ((m_dynamicQuery & GetShowsDynamicQuery.Name) == GetShowsDynamicQuery.Beginning)
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Name))
             {
                 builder.AppendLine("            name");
             }
-            if ((m_dynamicQuery & GetShowsDynamicQuery.Beginning) == GetShowsDynamicQuery.Beginning)
+
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Beginning))
             {
                 builder.AppendLine("            beginning {");
                 builder.AppendLine("                formatted");
                 builder.AppendLine("            }");
             }
-            if ((m_dynamicQuery & GetShowsDynamicQuery.Flags) == GetShowsDynamicQuery.Flags)
+
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Flags))
             {
                 builder.AppendLine("            flags {");
                 builder.AppendLine("                name");
                 builder.AppendLine("            }");
             }
-            if ((m_dynamicQuery & GetShowsDynamicQuery.DetailUrl) == GetShowsDynamicQuery.DetailUrl)
+
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.DetailUrl))
             {
                 builder.AppendLine("            detailUrl {");
                 builder.AppendLine("                absoluteUrl");
                 builder.AppendLine("            }");
             }
-            if ((m_dynamicQuery & GetShowsDynamicQuery.MovieInfo) == GetShowsDynamicQuery.MovieInfo)
+
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.MovieInfo))
             {
                 builder.AppendLine("            movie {");
                 builder.AppendLine("                genres {");

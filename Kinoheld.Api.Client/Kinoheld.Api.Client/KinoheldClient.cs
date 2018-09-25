@@ -38,20 +38,27 @@ namespace Kinoheld.Api.Client
             }
 
             var cinemas = m_jsonWorker.ConvertToCinemas(jsonResult);
-            return FilterByDistance(cinemas);
+            return FilterByDistance(cinemas, dynamicQuery);
         }
 
-        private static IEnumerable<Cinema> FilterByDistance(IEnumerable<Cinema> cinemas)
+        private static IEnumerable<Cinema> FilterByDistance(
+            IEnumerable<Cinema> cinemas,
+            GetCinemasDynamicQuery dynamicQuery)
         {
+            if (dynamicQuery != GetCinemasDynamicQuery.Full)
+            {
+                return cinemas;
+            }
+
             // Hack:
             // The api is returning random cinemas with distance = null,
             // when searching for a non-existing city
             return cinemas.Where(p => p.Distance.HasValue);
         }
 
-        public async Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery getShowsDynamicQuery = GetShowsDynamicQuery.Full)
+        public async Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full)
         {
-            var jsonResult = await m_client.GetShows(cinemaId, date, getShowsDynamicQuery);
+            var jsonResult = await m_client.GetShows(cinemaId, date, dynamicQuery);
             if (jsonResult == null)
             {
                 return new Show[0];
