@@ -13,7 +13,7 @@ namespace Kinoheld.Api.Client.Api.Queries
             m_limit = limit;
         }
 
-        protected override string Query()
+        protected override string QueryDynamic()
         {
             return @"
 query SearchCities($searchTerm: String!, $limit: Int) {
@@ -35,6 +35,11 @@ query SearchCities($searchTerm: String!, $limit: Int) {
           }  
    }    
 }";
+        }
+
+        protected override string QueryPartFullResponse()
+        {
+            return null;
         }
 
         protected override string OperationName()

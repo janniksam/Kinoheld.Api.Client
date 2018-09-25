@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Kinoheld.Api.Client.Api.Core;
 
 namespace Kinoheld.Api.Client.Api.Queries
@@ -14,12 +15,19 @@ namespace Kinoheld.Api.Client.Api.Queries
             m_date = date;
         }
 
-        protected override string Query()
+        protected override string QueryDynamic()
         {
             return @"
 query SearchShow($cinemaId: ID!, $date: String!) {
   shows (cinemaId: $cinemaId, date: $date) {
-            name
+#DYNAMIC
+        }
+    }";
+        }
+
+        protected override string QueryPartFullResponse()
+        {
+            return @"            name
             beginning {
                 formatted
             }
@@ -33,9 +41,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
                 genres {
                     name
                 }
-            }
-        }
-    }";
+            }";
         }
 
         protected override string OperationName()

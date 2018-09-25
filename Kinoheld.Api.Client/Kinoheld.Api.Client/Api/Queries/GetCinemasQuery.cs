@@ -15,25 +15,31 @@ namespace Kinoheld.Api.Client.Api.Queries
             m_distance = distance;
         }
 
-        protected override string Query()
+        protected override string QueryDynamic()
         {
             return @"
 query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
   cinemas (search: $searchTerm, location: $location, distance: $distance) {
-        id
-        name
-        street
-        city
-        {
-            name
-        }
-        distance
-        detailUrl
-        {
-            absoluteUrl
-        }
+       #DYNAMIC
     }
 }";
+        }
+
+        protected override string QueryPartFullResponse()
+        {
+            return @"
+            id
+            name
+            street
+            city
+            {
+                name
+            }
+            distance
+            detailUrl
+            {
+                absoluteUrl
+            }";
         }
 
         protected override string OperationName()
