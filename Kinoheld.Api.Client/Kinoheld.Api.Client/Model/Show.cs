@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Kinoheld.Api.Client.Model
 {
@@ -15,5 +16,13 @@ namespace Kinoheld.Api.Client.Model
 
         [JsonProperty("movie")]
         public MovieInfo MovieInfo { get; set; }
+
+        [JsonProperty("flags")]
+        public List<Flag> Flags { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} ({Beginning?.Formatted})";
+        }
     }
 }
