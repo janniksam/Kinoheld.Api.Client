@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Kinoheld.Api.Client.Api.Core;
+using Kinoheld.Api.Client.Requests;
 
 namespace Kinoheld.Api.Client.Api.Queries
 {
@@ -8,14 +10,16 @@ namespace Kinoheld.Api.Client.Api.Queries
     {
         private readonly int m_cinemaId;
         private readonly DateTime? m_date;
+        private readonly GetShowsDynamicQuery m_dynamicQuery;
 
-        public GetShowsQuery(int cinemaId, DateTime? date)
+        public GetShowsQuery(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
         {
             m_cinemaId = cinemaId;
             m_date = date;
+            m_dynamicQuery = dynamicQuery;
         }
 
-        protected override string QueryDynamic()
+        protected override string Query()
         {
             return @"
 query SearchShow($cinemaId: ID!, $date: String!) {
@@ -25,23 +29,67 @@ query SearchShow($cinemaId: ID!, $date: String!) {
     }";
         }
 
-        protected override string QueryPartFullResponse()
+        protected override string QueryDynamicResponsePart()
         {
-            return @"            name
-            beginning {
-                formatted
+            if (m_dynamicQuery == GetShowsDynamicQuery.Full)
+            {
+                return QueryPartFullResponse();
             }
-            flags {
-                name
+
+            var builder = new StringBuilder();
+            if ((m_dynamicQuery & GetShowsDynamicQuery.Name) == GetShowsDynamicQuery.Beginning)
+            {
+                builder.AppendLine("            name");
             }
-            detailUrl {
-                absoluteUrl
+            if ((m_dynamicQuery & GetShowsDynamicQuery.Beginning) == GetShowsDynamicQuery.Beginning)
+            {
+                builder.AppendLine("            beginning {");
+                builder.AppendLine("                formatted");
+                builder.AppendLine("            }");
             }
-            movie {
-                genres {
-                    name
-                }
-            }";
+            if ((m_dynamicQuery & GetShowsDynamicQuery.Flags) == GetShowsDynamicQuery.Flags)
+            {
+                builder.AppendLine("            flags {");
+                builder.AppendLine("                name");
+                builder.AppendLine("            }");
+            }
+            if ((m_dynamicQuery & GetShowsDynamicQuery.DetailUrl) == GetShowsDynamicQuery.DetailUrl)
+            {
+                builder.AppendLine("            detailUrl {");
+                builder.AppendLine("                absoluteUrl");
+                builder.AppendLine("            }");
+            }
+            if ((m_dynamicQuery & GetShowsDynamicQuery.MovieInfo) == GetShowsDynamicQuery.MovieInfo)
+            {
+                builder.AppendLine("            movie {");
+                builder.AppendLine("                genres {");
+                builder.AppendLine("                    name");
+                builder.AppendLine("                }");
+                builder.AppendLine("            }");
+            }
+
+            return builder.ToString();
+        }
+
+        private string QueryPartFullResponse()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("            name");
+            builder.AppendLine("            beginning {");
+            builder.AppendLine("                formatted");
+            builder.AppendLine("            }");
+            builder.AppendLine("            flags {");
+            builder.AppendLine("                name");
+            builder.AppendLine("            }");
+            builder.AppendLine("            detailUrl {");
+            builder.AppendLine("                absoluteUrl");
+            builder.AppendLine("            }");
+            builder.AppendLine("            movie {");
+            builder.AppendLine("                genres {");
+            builder.AppendLine("                    name");
+            builder.AppendLine("                }");
+            builder.AppendLine("            }");
+            return builder.ToString();
         }
 
         protected override string OperationName()

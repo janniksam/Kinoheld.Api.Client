@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Kinoheld.Api.Client.Api;
 using Kinoheld.Api.Client.Model;
 using Kinoheld.Api.Client.Json;
+using Kinoheld.Api.Client.Requests;
 
 namespace Kinoheld.Api.Client
 {
@@ -28,9 +29,9 @@ namespace Kinoheld.Api.Client
             m_jsonWorker = jsonWorker ?? throw new ArgumentNullException(nameof(jsonWorker));
         }
 
-        public async Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm, int distance)
+        public async Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15, GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full)
         {
-            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance);
+            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance, dynamicQuery);
             if (jsonResult == null)
             {
                 return new Cinema[0];
@@ -48,9 +49,9 @@ namespace Kinoheld.Api.Client
             return cinemas.Where(p => p.Distance.HasValue);
         }
 
-        public async Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date)
+        public async Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery getShowsDynamicQuery = GetShowsDynamicQuery.Full)
         {
-            var jsonResult = await m_client.GetShows(cinemaId, date);
+            var jsonResult = await m_client.GetShows(cinemaId, date, getShowsDynamicQuery);
             if (jsonResult == null)
             {
                 return new Show[0];
@@ -59,7 +60,7 @@ namespace Kinoheld.Api.Client
             return m_jsonWorker.ConvertToShows(jsonResult);
         }
 
-        public async Task<CitySearchResult> GetCities(string searchTerm, int limit)
+        public async Task<CitySearchResult> GetCities(string searchTerm, int limit = 10)
         {
             var jsonResult = await m_client.GetCities(searchTerm, limit);
             if (jsonResult == null)

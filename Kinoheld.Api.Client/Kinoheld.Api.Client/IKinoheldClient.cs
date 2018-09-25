@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Kinoheld.Api.Client.Model;
+using Kinoheld.Api.Client.Requests;
 
 [assembly: InternalsVisibleTo("Kinoheld.Api.Client.Tests")]
 namespace Kinoheld.Api.Client
@@ -13,18 +14,20 @@ namespace Kinoheld.Api.Client
         /// Get the cinemas matching the given criteria
         /// </summary>
         /// <param name="city">A city in which the cinema is located</param>
+        /// <param name="dynamicQuery"></param>
         /// <param name="searchTerm">A searchterm (e.g. Autokino)</param>
         /// <param name="distance">Maximum distance in kilometers to search the cinema in</param>
         /// <returns>List of all matching cinemas</returns>
-        Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15);
+        Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15, GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full);
 
         /// <summary>
         /// Get the cinemas matching the given criteria
         /// </summary>
         /// <param name="cinemaId">The Id of the cinema</param>
         /// <param name="date">The date on which the shows should run</param>
+        /// <param name="getShowsDynamicQuery"></param>
         /// <returns>List of all matching cinemas</returns>
-        Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null);
+        Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery getShowsDynamicQuery = GetShowsDynamicQuery.Full);
 
         /// <summary>
         /// Searches for a city

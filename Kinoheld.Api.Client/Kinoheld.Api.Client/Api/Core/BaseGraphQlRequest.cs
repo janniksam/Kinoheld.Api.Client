@@ -18,18 +18,18 @@ namespace Kinoheld.Api.Client.Api.Core
 
         private string FormatQuery()
         {
-            var queryPartFullResponse = QueryPartFullResponse();
-            if (string.IsNullOrEmpty(queryPartFullResponse))
+            var queryResponsePart = QueryDynamicResponsePart();
+            if (string.IsNullOrEmpty(queryResponsePart))
             {
-                return QueryDynamic();
+                return Query();
             }
 
-            return QueryDynamic()?.Replace(DynamicWildcard, QueryPartFullResponse());
+            return Query()?.Replace(DynamicWildcard, queryResponsePart);
         }
 
-        protected abstract string QueryDynamic();
+        protected abstract string Query();
 
-        protected abstract string QueryPartFullResponse();
+        protected abstract string QueryDynamicResponsePart();
 
         protected abstract dynamic Parameters();
 

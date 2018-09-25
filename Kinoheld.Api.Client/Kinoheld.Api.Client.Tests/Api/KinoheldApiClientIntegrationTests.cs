@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kinoheld.Api.Client.Api;
+using Kinoheld.Api.Client.Requests;
 using NUnit.Framework;
 
 namespace Kinoheld.Api.Client.Tests.Api
@@ -12,7 +13,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         public async Task GetCinemas_ReturnsSomeCinemas()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            var cinemas = await client.GetCinemas("aurich", string.Empty, 15);
+            var cinemas = await client.GetCinemas("aurich", string.Empty, 15, GetCinemasDynamicQuery.Full);
             Assert.IsNotNull(cinemas);
         }
 
@@ -36,7 +37,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         public async Task GetShows_ReturnsSomeShowsWhenDateIsSet()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            var cinemas = await client.GetShows(2127, DateTime.Today);
+            var cinemas = await client.GetShows(2127, DateTime.Today, GetShowsDynamicQuery.Full);
             Assert.IsNotNull(cinemas);
         }
 
@@ -45,7 +46,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         public async Task GetShows_ReturnsSomeShowsWhenDateIsNotSet()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            var cinemas = await client.GetShows(2127, null);
+            var cinemas = await client.GetShows(2127, null, GetShowsDynamicQuery.Full);
             Assert.IsNotNull(cinemas);
         }
     }

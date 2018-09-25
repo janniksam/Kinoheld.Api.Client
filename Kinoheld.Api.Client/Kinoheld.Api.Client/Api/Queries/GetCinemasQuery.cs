@@ -1,4 +1,6 @@
-﻿using Kinoheld.Api.Client.Api.Core;
+﻿using System.Text;
+using Kinoheld.Api.Client.Api.Core;
+using Kinoheld.Api.Client.Requests;
 
 namespace Kinoheld.Api.Client.Api.Queries
 {
@@ -7,15 +9,16 @@ namespace Kinoheld.Api.Client.Api.Queries
         private readonly string m_searchTerm;
         private readonly string m_city;
         private readonly int m_distance;
+        private GetCinemasDynamicQuery m_dynamicQuery;
 
-        public GetCinemasQuery(string searchTerm, string city, int distance)
+        public GetCinemasQuery(string searchTerm, string city, int distance, GetCinemasDynamicQuery dynamicQuery)
         {
             m_searchTerm = searchTerm;
             m_city = city;
             m_distance = distance;
         }
 
-        protected override string QueryDynamic()
+        protected override string Query()
         {
             return @"
 query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
@@ -25,21 +28,65 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
 }";
         }
 
-        protected override string QueryPartFullResponse()
+        protected override string QueryDynamicResponsePart()
         {
-            return @"
-            id
-            name
-            street
-            city
+            if (m_dynamicQuery == GetCinemasDynamicQuery.Full)
             {
-                name
+                return QueryPartFullResponse();
             }
-            distance
-            detailUrl
+
+            var builder = new StringBuilder();
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.Id) == GetCinemasDynamicQuery.Id)
             {
-                absoluteUrl
-            }";
+                builder.AppendLine("            id");
+            }
+
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.Name) == GetCinemasDynamicQuery.Name)
+            {
+                builder.AppendLine("            name");
+            }
+
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.Street) == GetCinemasDynamicQuery.Street)
+            {
+                builder.AppendLine("            street");
+            }
+
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.City) == GetCinemasDynamicQuery.City)
+            {
+                builder.AppendLine("            city {");
+                builder.AppendLine("                name");
+                builder.AppendLine("            }");
+            }
+
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.Distance) == GetCinemasDynamicQuery.Distance)
+            {
+                builder.AppendLine("            distance");
+            }
+
+            if ((m_dynamicQuery & GetCinemasDynamicQuery.DetailUrl) == GetCinemasDynamicQuery.DetailUrl)
+            {
+                builder.AppendLine("            detailUrl {");
+                builder.AppendLine("                absoluteUrl");
+                builder.AppendLine("            }");
+            }
+
+            return builder.ToString();
+        }
+
+        private string QueryPartFullResponse()
+        {
+            var builder = new StringBuilder();
+            builder.AppendLine("            id");
+            builder.AppendLine("            name");
+            builder.AppendLine("            street");
+            builder.AppendLine("            city {");
+            builder.AppendLine("                name");
+            builder.AppendLine("            }");
+            builder.AppendLine("            distance");
+            builder.AppendLine("            detailUrl {");
+            builder.AppendLine("                absoluteUrl");
+            builder.AppendLine("            }");
+            return builder.ToString();
         }
 
         protected override string OperationName()
