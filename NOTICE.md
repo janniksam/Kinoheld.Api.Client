@@ -1,5 +1,7 @@
 # Kinoheld.Api.Client
 
+## License
+
 MIT License
 
 Copyright (c) 2018 janniksam
@@ -22,11 +24,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-# IMPORTANT NOTICE:
+## IMPORTANT NOTICE:
 
 This open source project is using and is based on several other open source projects:
 
-## GraphQL.Client, GraphQL.Common
+### GraphQL.Client, GraphQL.Common
 
 https://github.com/graphql-dotnet/graphql-client
 
@@ -52,7 +54,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Newtonsoft.Json
+### Newtonsoft.Json
 
 https://github.com/JamesNK/Newtonsoft.Json
 
