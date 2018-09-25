@@ -32,3 +32,14 @@ var cinemas = await client.GetCinemas("aurich", "autokino");
 var client = new KinoheldClient();
 var upcoming = await client.GetShows(cinema.Id, DateTime.Today.AddDays(1));   
  ```
+
+### Dynamic queries
+
+You can use dynamic queries to only get back the information you need. That way you can save transmission overhead.
+
+```cs
+//Retrieve only ID and Name of all cinemas near the City "Aurich"
+IKinoheldClient client = new KinoheldClient();
+var dynamicQuery = GetCinemasDynamicQuery.Id | GetCinemasDynamicQuery.Name;
+var cinemas = await client.GetCinemas("aurich", dynamicQuery: dynamicQuery);
+```
