@@ -25,14 +25,8 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = SearchCinemaQuery.Query(),
-                    OperationName = SearchCinemaQuery.OperationName(),
-                    Variables = SearchCinemaQuery.Parameters(searchTerm, city, distance)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetCinemasQuery(searchTerm, city, distance);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }
@@ -46,14 +40,8 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = GetShowsQuery.Query(),
-                    OperationName = GetShowsQuery.OperationName(),
-                    Variables = GetShowsQuery.Parameters(cinemaId, date)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetShowsQuery(cinemaId, date);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }
@@ -72,14 +60,8 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = GetCitiesQuery.Query(),
-                    OperationName = GetCitiesQuery.OperationName(),
-                    Variables = GetCitiesQuery.Parameters(searchTerm, limit)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetCitiesQuery(searchTerm, limit);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }

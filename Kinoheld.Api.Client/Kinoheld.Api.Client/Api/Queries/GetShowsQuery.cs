@@ -1,10 +1,20 @@
 using System;
+using Kinoheld.Api.Client.Api.Core;
 
 namespace Kinoheld.Api.Client.Api.Queries
 {
-    public class GetShowsQuery
+    public class GetShowsQuery : BaseGraphQlRequest
     {
-        public static string Query()
+        private readonly int m_cinemaId;
+        private readonly DateTime? m_date;
+
+        public GetShowsQuery(int cinemaId, DateTime? date)
+        {
+            m_cinemaId = cinemaId;
+            m_date = date;
+        }
+
+        protected override string Query()
         {
             return @"
 query SearchShow($cinemaId: ID!, $date: String!) {
@@ -28,17 +38,17 @@ query SearchShow($cinemaId: ID!, $date: String!) {
     }";
         }
 
-        public static string OperationName()
+        protected override string OperationName()
         {
             return "SearchShow";
         }
 
-        public static dynamic Parameters(int cinemaId, DateTime? date)
+        protected override dynamic Parameters()
         {
             return new
             {
-                cinemaId = cinemaId,
-                date = date?.ToShortDateString() ?? string.Empty
+                cinemaId = m_cinemaId,
+                date = m_date?.ToShortDateString() ?? string.Empty
             };
         }
 
