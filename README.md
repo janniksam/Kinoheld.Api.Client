@@ -6,7 +6,7 @@
 
 ## Description
 
-Kinoheld API Client is a client for the GraphQL-API, which is provided by kinoheld.de.
+Kinoheld API Client is a client for the GraphQL-API, which is provided by [kinoheld.de](https://www.kinoheld.de).
 The client currently supports:
 - Searching a cinema by giving a city, a search term and a maximum distance between the city and the cinema.
 - Retrieving information for movies that are currently played / will be played at the given cinema.
@@ -32,3 +32,14 @@ var cinemas = await client.GetCinemas("aurich", "autokino");
 var client = new KinoheldClient();
 var upcoming = await client.GetShows(cinema.Id, DateTime.Today.AddDays(1));   
  ```
+
+### Dynamic queries
+
+You can use dynamic queries to only get back the information you need. That way you can save transmission overhead.
+
+```cs
+//Retrieve only ID and Name of all cinemas near the City "Aurich"
+IKinoheldClient client = new KinoheldClient();
+var dynamicQuery = GetCinemasDynamicQuery.Id | GetCinemasDynamicQuery.Name;
+var cinemas = await client.GetCinemas("aurich", dynamicQuery: dynamicQuery);
+```

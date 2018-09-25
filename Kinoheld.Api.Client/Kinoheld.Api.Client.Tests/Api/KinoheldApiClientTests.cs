@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Kinoheld.Api.Client.Api;
+using Kinoheld.Api.Client.Requests;
 using NUnit.Framework;
 
 namespace Kinoheld.Api.Client.Tests.Api
@@ -14,11 +14,11 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var o = await client.GetCinemas(null, null, 15);
+                var o = await client.GetCinemas(null, null, 15, GetCinemasDynamicQuery.Full);
             });
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var o = await client.GetCinemas(string.Empty, null, 15);
+                var o = await client.GetCinemas(string.Empty, null, 15, GetCinemasDynamicQuery.Full);
             });
         }
 
@@ -28,11 +28,11 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetCinemas("aurich", null, -1);
+                var o = await client.GetCinemas("aurich", null, -1, GetCinemasDynamicQuery.Full);
             });
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetCinemas("aurich", null, 0);
+                var o = await client.GetCinemas("aurich", null, 0, GetCinemasDynamicQuery.Full);
             });
         }
 
@@ -70,11 +70,11 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetShows(0, null);
+                var o = await client.GetShows(0, null, GetShowsDynamicQuery.Full);
             });
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetShows(-1, null);
+                var o = await client.GetShows(-1, null, GetShowsDynamicQuery.Full);
             });
         }
     }

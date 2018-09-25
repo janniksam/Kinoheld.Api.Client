@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using GraphQL.Client;
 using GraphQL.Common.Request;
 using Kinoheld.Api.Client.Api.Queries;
+using Kinoheld.Api.Client.Requests;
 using Newtonsoft.Json.Linq;
 
 namespace Kinoheld.Api.Client.Api
@@ -11,7 +12,7 @@ namespace Kinoheld.Api.Client.Api
     {
         private const string KinoheldEndpoint = "https://graph.kinoheld.de/graphql/v1/query";
 
-        public async Task<JObject> GetCinemas(string city, string searchTerm, int distance)
+        public async Task<JObject> GetCinemas(string city, string searchTerm, int distance, GetCinemasDynamicQuery dynamicQuery)
         {
             if (string.IsNullOrEmpty(city?.Trim()))
             {
@@ -25,19 +26,13 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = SearchCinemaQuery.Query(),
-                    OperationName = SearchCinemaQuery.OperationName(),
-                    Variables = SearchCinemaQuery.Parameters(searchTerm, city, distance)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetCinemasQuery(searchTerm, city, distance, dynamicQuery);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }
 
-        public async Task<JObject> GetShows(int cinemaId, DateTime? date)
+        public async Task<JObject> GetShows(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
         {
             if (cinemaId <= 0)
             {
@@ -46,14 +41,8 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = GetShowsQuery.Query(),
-                    OperationName = GetShowsQuery.OperationName(),
-                    Variables = GetShowsQuery.Parameters(cinemaId, date)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetShowsQuery(cinemaId, date, dynamicQuery);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }
@@ -72,14 +61,8 @@ namespace Kinoheld.Api.Client.Api
 
             using (var client = GetClient())
             {
-                var cinemaRequest = new GraphQLRequest
-                {
-                    Query = GetCitiesQuery.Query(),
-                    OperationName = GetCitiesQuery.OperationName(),
-                    Variables = GetCitiesQuery.Parameters(searchTerm, limit)
-                };
-
-                var response = await client.PostAsync(cinemaRequest);
+                var query = new GetCitiesQuery(searchTerm, limit);
+                var response = await client.PostAsync(query.BuildRequest());
                 return response?.Data;
             }
         }
