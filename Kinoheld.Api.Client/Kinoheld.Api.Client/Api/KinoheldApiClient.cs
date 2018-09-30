@@ -27,7 +27,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCinemasQuery(searchTerm, city, distance, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest());
+                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
                 return response?.Data;
             }
         }
@@ -42,7 +42,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetShowsQuery(cinemaId, date, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest());
+                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
                 return response?.Data;
             }
         }
@@ -62,7 +62,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCitiesQuery(searchTerm, limit);
-                var response = await client.PostAsync(query.BuildRequest());
+                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
                 return response?.Data;
             }
         }

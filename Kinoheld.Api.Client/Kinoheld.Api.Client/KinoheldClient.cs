@@ -31,7 +31,7 @@ namespace Kinoheld.Api.Client
 
         public async Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15, GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full)
         {
-            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance, dynamicQuery);
+            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance, dynamicQuery).ConfigureAwait(false);
             if (jsonResult == null)
             {
                 return new Cinema[0];
@@ -58,7 +58,7 @@ namespace Kinoheld.Api.Client
 
         public async Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full)
         {
-            var jsonResult = await m_client.GetShows(cinemaId, date, dynamicQuery);
+            var jsonResult = await m_client.GetShows(cinemaId, date, dynamicQuery).ConfigureAwait(false);
             if (jsonResult == null)
             {
                 return new Show[0];
@@ -69,7 +69,7 @@ namespace Kinoheld.Api.Client
 
         public async Task<CitySearchResult> GetCities(string searchTerm, int limit = 10)
         {
-            var jsonResult = await m_client.GetCities(searchTerm, limit);
+            var jsonResult = await m_client.GetCities(searchTerm, limit).ConfigureAwait(false);
             if (jsonResult == null)
             {
                 return new CitySearchResult();
