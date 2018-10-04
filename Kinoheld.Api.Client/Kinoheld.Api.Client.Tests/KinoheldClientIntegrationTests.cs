@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Kinoheld.Api.Client.Requests;
 using NUnit.Framework;
 
@@ -104,6 +104,45 @@ namespace Kinoheld.Api.Client.Tests
             Assert.AreEqual(1, cities.Cities.Count);
             Assert.AreEqual(0, cities.PostalCodes.Count);
             Assert.AreEqual("Aurich", cities.Cities[0].Name);
+        }
+
+        [Test]
+        public void GetShows_ThrowsOnCancel()
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetShows(1, cancellationToken: cts.Token);
+            });
+        }
+
+        [Test]
+        public void GetCities_ThrowsOnCancel()
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetCities("aurich", cancellationToken: cts.Token);
+            });
+        }
+
+        [Test]
+        public void GetCinemas_ThrowsOnCancel()
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetCinemas("aurich", cancellationToken: cts.Token);
+            });
         }
     }
 }

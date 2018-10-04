@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using GraphQL.Client;
-using GraphQL.Common.Request;
 using Kinoheld.Api.Client.Api.Queries;
 using Kinoheld.Api.Client.Requests;
 using Newtonsoft.Json.Linq;
@@ -12,7 +12,7 @@ namespace Kinoheld.Api.Client.Api
     {
         private const string KinoheldEndpoint = "https://graph.kinoheld.de/graphql/v1/query";
 
-        public async Task<JObject> GetCinemas(string city, string searchTerm, int distance, GetCinemasDynamicQuery dynamicQuery)
+        public async Task<JObject> GetCinemas(string city, string searchTerm, int distance, GetCinemasDynamicQuery dynamicQuery, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(city?.Trim()))
             {
@@ -27,12 +27,12 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCinemasQuery(searchTerm, city, distance, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
+                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
 
-        public async Task<JObject> GetShows(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
+        public async Task<JObject> GetShows(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery, CancellationToken cancellationToken)
         {
             if (cinemaId <= 0)
             {
@@ -42,12 +42,12 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetShowsQuery(cinemaId, date, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
+                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
 
-        public async Task<JObject> GetCities(string searchTerm, int limit)
+        public async Task<JObject> GetCities(string searchTerm, int limit, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(searchTerm?.Trim()))
             {
@@ -62,7 +62,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCitiesQuery(searchTerm, limit);
-                var response = await client.PostAsync(query.BuildRequest()).ConfigureAwait(false);
+                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
