@@ -43,3 +43,15 @@ IKinoheldClient client = new KinoheldClient();
 var dynamicQuery = GetCinemasDynamicQuery.Id | GetCinemasDynamicQuery.Name;
 var cinemas = await client.GetCinemas("aurich", dynamicQuery: dynamicQuery);
 ```
+
+### Cancellation
+
+The client currently supports basic cancellation:
+
+```cs
+var cts = new CancellationTokenSource();
+IKinoheldClient client = new KinoheldClient();
+var cinemas = await client.GetCinemas("aurich", cancellationToken: cts.Token);
+// ...
+cts.Cancel();
+```
