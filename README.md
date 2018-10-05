@@ -12,6 +12,8 @@ The client currently supports:
 - Retrieving information for movies that are currently played / will be played at the given cinema.
 - Searching for city by giving a searchterm (e.g. a postal code)
 
+Please bear in mind [kinoheld.de](https://www.kinoheld.de) only lists cinemas that are Germany.
+
 ## Basis usage:
  
 ### Search for a cinema
@@ -46,7 +48,7 @@ var cinemas = await client.GetCinemas("aurich", dynamicQuery: dynamicQuery);
 
 ### Cancellation
 
-The client currently supports basic cancellation:
+The client currently supports basic cancellation.
 
 ```cs
 var cts = new CancellationTokenSource();
