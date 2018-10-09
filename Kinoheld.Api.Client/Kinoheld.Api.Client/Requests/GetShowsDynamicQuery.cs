@@ -6,10 +6,11 @@ namespace Kinoheld.Api.Client.Requests
     public enum GetShowsDynamicQuery
     {
         Full = 0,
-        Name = 1,
-        Beginning = 2,
-        Flags = 4,
-        DetailUrl = 8,
-        MovieInfo = 16
+        Id = 1,
+        Name = 2,
+        Beginning = 5,
+        Flags = 8,
+        DetailUrl = 16,
+        MovieInfo = 32
     }
 }
