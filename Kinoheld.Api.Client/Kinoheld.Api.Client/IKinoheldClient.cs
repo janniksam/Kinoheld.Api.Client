@@ -30,7 +30,7 @@ namespace Kinoheld.Api.Client
         /// <param name="dynamicQuery"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>List of all matching cinemas</returns>
-        Task<IEnumerable<Show>> GetShows(int cinemaId, DateTime? date = null, GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IEnumerable<Show>> GetShows(long cinemaId, DateTime? date = null, GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Searches for a city

@@ -8,11 +8,11 @@ namespace Kinoheld.Api.Client.Api.Queries
 {
     public class GetShowsQuery : BaseGraphQlRequest
     {
-        private readonly int m_cinemaId;
+        private readonly long m_cinemaId;
         private readonly DateTime? m_date;
         private readonly GetShowsDynamicQuery m_dynamicQuery;
 
-        public GetShowsQuery(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
+        public GetShowsQuery(long cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
         {
             m_cinemaId = cinemaId;
             m_date = date;

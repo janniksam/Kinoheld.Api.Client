@@ -62,7 +62,7 @@ namespace Kinoheld.Api.Client
         }
 
         public async Task<IEnumerable<Show>> GetShows(
-            int cinemaId, 
+            long cinemaId, 
             DateTime? date = null, 
             GetShowsDynamicQuery dynamicQuery = GetShowsDynamicQuery.Full, 
             CancellationToken cancellationToken = default(CancellationToken))

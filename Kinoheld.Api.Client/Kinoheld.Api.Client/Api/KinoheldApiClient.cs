@@ -32,7 +32,7 @@ namespace Kinoheld.Api.Client.Api
             }
         }
 
-        public async Task<JObject> GetShows(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery, CancellationToken cancellationToken)
+        public async Task<JObject> GetShows(long cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery, CancellationToken cancellationToken)
         {
             if (cinemaId <= 0)
             {
