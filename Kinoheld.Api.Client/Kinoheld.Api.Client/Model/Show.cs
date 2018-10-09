@@ -22,7 +22,7 @@ namespace Kinoheld.Api.Client.Model
 
         public override string ToString()
         {
-            return $"{Name} ({Beginning?.Formatted})";
+            return $"{Name} ({Beginning?.Timestamp})";
         }
     }
 }

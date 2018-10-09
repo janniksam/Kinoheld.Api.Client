@@ -45,7 +45,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Beginning))
             {
                 builder.AppendLine("            beginning {");
-                builder.AppendLine("                formatted");
+                builder.AppendLine("                timestamp");
                 builder.AppendLine("            }");
             }
 
@@ -82,7 +82,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             var builder = new StringBuilder();
             builder.AppendLine("            name");
             builder.AppendLine("            beginning {");
-            builder.AppendLine("                formatted");
+            builder.AppendLine("                timestamp");
             builder.AppendLine("            }");
             builder.AppendLine("            flags {");
             builder.AppendLine("                name");

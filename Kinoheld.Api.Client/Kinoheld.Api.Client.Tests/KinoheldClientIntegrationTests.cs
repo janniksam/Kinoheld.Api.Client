@@ -52,7 +52,7 @@ namespace Kinoheld.Api.Client.Tests
         public async Task GetShows_ReturnsSomeShows()
         {
             IKinoheldClient client = new KinoheldClient();
-            var shows = await client.GetShows(2127);
+            var shows = await client.GetShows(2127);           
             Assert.AreNotEqual(0, shows.Count());
         }
 
@@ -62,7 +62,6 @@ namespace Kinoheld.Api.Client.Tests
             IKinoheldClient client = new KinoheldClient();
             var dynamicQuery = GetShowsDynamicQuery.Name;
             var shows = await client.GetShows(2127, dynamicQuery: dynamicQuery);
-
             Assert.AreNotEqual(0, shows.Count());
             Assert.True(shows.All(p => p.Flags == null && p.Beginning == null && p.DetailUrl == null && p.MovieInfo == null), "The dynamic name query gives too much info");
             Assert.True(!shows.Any(p => string.IsNullOrEmpty(p.Name)), "The dynamic name query gives too less info");
