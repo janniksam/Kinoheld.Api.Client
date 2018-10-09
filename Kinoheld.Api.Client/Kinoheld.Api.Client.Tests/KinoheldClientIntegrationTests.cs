@@ -28,7 +28,7 @@ namespace Kinoheld.Api.Client.Tests
             Assert.AreNotEqual(0, cinemas.Count());
             Assert.True(cinemas.Any(p => p.Name == "Kino Aurich"), "Could not find Kino Aurich in the response list.");
             Assert.True(cinemas.All(p => p.City == null && string.IsNullOrEmpty(p.Street)), "The dynamic id / name query gives too much info");
-            Assert.True(!cinemas.Any(p => string.IsNullOrEmpty(p.Name) || string.IsNullOrEmpty(p.Id)) , "The dynamic id / name query gives too less info");
+            Assert.True(!cinemas.Any(p => string.IsNullOrEmpty(p.Name) || p.Id <= 0) , "The dynamic id / name query gives too less info");
         }
 
         [Test]

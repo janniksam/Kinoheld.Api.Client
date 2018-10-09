@@ -40,7 +40,7 @@ namespace Kinoheld.Api.Client.Tests.Json
             Assert.AreEqual(2, cinemas.Count());
             Assert.AreEqual("Kino Aurich", cinemas.First().Name);
             Assert.AreEqual("Aurich", cinemas.First().City.Name);
-            Assert.AreEqual("2127", cinemas.First().Id);
+            Assert.AreEqual(2127, cinemas.First().Id);
             Assert.AreEqual("Emder Straße 5", cinemas.First().Street);
             Assert.AreEqual("Autokino Aurich-Tannenhausen", cinemas.Last().Name);
             Assert.AreEqual("Aurich", cinemas.Last().City.Name);

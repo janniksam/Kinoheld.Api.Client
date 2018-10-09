@@ -66,6 +66,8 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.MovieInfo))
             {
                 builder.AppendLine("            movie {");
+                builder.AppendLine("                id");
+                builder.AppendLine("                title");
                 builder.AppendLine("                genres {");
                 builder.AppendLine("                    name");
                 builder.AppendLine("                }");
@@ -89,6 +91,8 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("                absoluteUrl");
             builder.AppendLine("            }");
             builder.AppendLine("            movie {");
+            builder.AppendLine("                id");
+            builder.AppendLine("                title");
             builder.AppendLine("                genres {");
             builder.AppendLine("                    name");
             builder.AppendLine("                }");
