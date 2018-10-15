@@ -11,7 +11,7 @@ namespace Kinoheld.Api.Client.Model
 
         public DateTime GetDateTime()
         {
-            return Timestamp.ToDateTime().ToLocalTime();
+            return Timestamp.ToDateTime();
         }
     }
 }
