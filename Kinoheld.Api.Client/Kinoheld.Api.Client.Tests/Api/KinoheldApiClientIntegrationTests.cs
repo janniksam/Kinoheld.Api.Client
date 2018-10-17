@@ -38,8 +38,8 @@ namespace Kinoheld.Api.Client.Tests.Api
         public async Task GetShows_ReturnsSomeShowsWhenDateIsSet()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            var cinemas = await client.GetShows(2127, DateTime.Today, GetShowsDynamicQuery.Full, CancellationToken.None);
-            Assert.IsNotNull(cinemas);
+            var shows = await client.GetShows(2127, DateTime.Today, GetShowsDynamicQuery.Full, CancellationToken.None);
+            Assert.IsNotNull(shows);
         }
 
 

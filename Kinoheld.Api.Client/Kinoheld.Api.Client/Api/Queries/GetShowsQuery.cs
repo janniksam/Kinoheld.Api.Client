@@ -117,7 +117,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             return new
             {
                 cinemaId = m_cinemaId,
-                date = m_date?.ToShortDateString() ?? string.Empty
+                date = m_date?.ToString("yyyy-MM-dd") ?? string.Empty
             };
         }
 

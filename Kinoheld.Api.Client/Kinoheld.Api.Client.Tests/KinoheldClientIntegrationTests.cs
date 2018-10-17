@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Kinoheld.Api.Client.Requests;
@@ -54,6 +55,17 @@ namespace Kinoheld.Api.Client.Tests
             IKinoheldClient client = new KinoheldClient();
             var shows = await client.GetShows(2127);           
             Assert.AreNotEqual(0, shows.Count());
+        }
+
+        [Test]
+        public async Task GetShows_ReturnsSomeShowsOtherDateThanToday()
+        {
+            var tommorow = DateTime.Now.AddDays(1).Date;
+
+            IKinoheldClient client = new KinoheldClient();
+            var shows = await client.GetShows(2127, tommorow);
+            Assert.AreNotEqual(0, shows.Count());
+            Assert.True(shows.All(p => p.Beginning.GetDateTime().Date == tommorow));
         }
 
         [Test]
