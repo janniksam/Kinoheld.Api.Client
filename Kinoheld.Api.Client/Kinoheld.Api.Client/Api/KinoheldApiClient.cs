@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using GraphQL.Client;
+using GraphQL.Client.Http;
 using Kinoheld.Api.Client.Api.Queries;
 using Kinoheld.Api.Client.Requests;
 using Newtonsoft.Json.Linq;
@@ -27,7 +28,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCinemasQuery(searchTerm, city, distance, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
+                var response = await client.SendQueryAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
@@ -42,7 +43,7 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetShowsQuery(cinemaId, date, dynamicQuery);
-                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
+                var response = await client.SendQueryAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
@@ -62,14 +63,14 @@ namespace Kinoheld.Api.Client.Api
             using (var client = GetClient())
             {
                 var query = new GetCitiesQuery(searchTerm, limit);
-                var response = await client.PostAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
+                var response = await client.SendQueryAsync(query.BuildRequest(), cancellationToken).ConfigureAwait(false);
                 return response?.Data;
             }
         }
 
-        private GraphQLClient GetClient()
+        private GraphQLHttpClient GetClient()
         {
-            return new GraphQLClient(KinoheldEndpoint);
+            return new GraphQLHttpClient(KinoheldEndpoint);
         }
     }
 }

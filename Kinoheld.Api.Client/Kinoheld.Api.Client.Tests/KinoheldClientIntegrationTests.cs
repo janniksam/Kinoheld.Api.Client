@@ -120,7 +120,7 @@ namespace Kinoheld.Api.Client.Tests
         [Test]
         public void GetShows_ThrowsOnCancel()
         {
-            CancellationTokenSource cts = new CancellationTokenSource();
+            var cts = new CancellationTokenSource();
             cts.Cancel();
 
             IKinoheldClient client = new KinoheldClient();
@@ -133,7 +133,7 @@ namespace Kinoheld.Api.Client.Tests
         [Test]
         public void GetCities_ThrowsOnCancel()
         {
-            CancellationTokenSource cts = new CancellationTokenSource();
+            var cts = new CancellationTokenSource();
             cts.Cancel();
 
             IKinoheldClient client = new KinoheldClient();
