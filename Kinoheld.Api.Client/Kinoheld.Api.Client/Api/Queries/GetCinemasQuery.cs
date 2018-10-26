@@ -24,8 +24,8 @@ namespace Kinoheld.Api.Client.Api.Queries
         protected override string Query()
         {
             return @"
-query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
-  cinemas (search: $searchTerm, location: $location, distance: $distance) {
+query CinemaSearch($searchTerm: String!, $location: String, $distance: Int, $limit:Int) {
+  cinemas (search: $searchTerm, location: $location, distance: $distance, limit: $limit) {
        #DYNAMIC
     }
 }";
