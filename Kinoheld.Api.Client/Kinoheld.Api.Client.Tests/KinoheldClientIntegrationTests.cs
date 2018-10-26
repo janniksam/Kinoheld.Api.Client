@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using Kinoheld.Api.Client.Requests;
 using NUnit.Framework;
 
@@ -28,7 +29,7 @@ namespace Kinoheld.Api.Client.Tests
             Assert.AreNotEqual(0, cinemas.Count());
             Assert.True(cinemas.Any(p => p.Name == "Kino Aurich"), "Could not find Kino Aurich in the response list.");
             Assert.True(cinemas.All(p => p.City == null && string.IsNullOrEmpty(p.Street)), "The dynamic id / name query gives too much info");
-            Assert.True(!cinemas.Any(p => string.IsNullOrEmpty(p.Name) || string.IsNullOrEmpty(p.Id)) , "The dynamic id / name query gives too less info");
+            Assert.True(!cinemas.Any(p => string.IsNullOrEmpty(p.Name) || p.Id <= 0) , "The dynamic id / name query gives too less info");
         }
 
         [Test]
@@ -52,8 +53,19 @@ namespace Kinoheld.Api.Client.Tests
         public async Task GetShows_ReturnsSomeShows()
         {
             IKinoheldClient client = new KinoheldClient();
-            var shows = await client.GetShows(2127);
+            var shows = await client.GetShows(2127);           
             Assert.AreNotEqual(0, shows.Count());
+        }
+
+        [Test]
+        public async Task GetShows_ReturnsSomeShowsOtherDateThanToday()
+        {
+            var tommorow = DateTime.Now.AddDays(1).Date;
+
+            IKinoheldClient client = new KinoheldClient();
+            var shows = await client.GetShows(2127, tommorow);
+            Assert.AreNotEqual(0, shows.Count());
+            Assert.True(shows.All(p => p.Beginning.GetDateTime().Date == tommorow));
         }
 
         [Test]
@@ -62,7 +74,6 @@ namespace Kinoheld.Api.Client.Tests
             IKinoheldClient client = new KinoheldClient();
             var dynamicQuery = GetShowsDynamicQuery.Name;
             var shows = await client.GetShows(2127, dynamicQuery: dynamicQuery);
-
             Assert.AreNotEqual(0, shows.Count());
             Assert.True(shows.All(p => p.Flags == null && p.Beginning == null && p.DetailUrl == null && p.MovieInfo == null), "The dynamic name query gives too much info");
             Assert.True(!shows.Any(p => string.IsNullOrEmpty(p.Name)), "The dynamic name query gives too less info");
@@ -104,6 +115,45 @@ namespace Kinoheld.Api.Client.Tests
             Assert.AreEqual(1, cities.Cities.Count);
             Assert.AreEqual(0, cities.PostalCodes.Count);
             Assert.AreEqual("Aurich", cities.Cities[0].Name);
+        }
+
+        [Test]
+        public void GetShows_ThrowsOnCancel()
+        {
+            var cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetShows(1, cancellationToken: cts.Token);
+            });
+        }
+
+        [Test]
+        public void GetCities_ThrowsOnCancel()
+        {
+            var cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetCities("aurich", cancellationToken: cts.Token);
+            });
+        }
+
+        [Test]
+        public void GetCinemas_ThrowsOnCancel()
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            cts.Cancel();
+
+            IKinoheldClient client = new KinoheldClient();
+            Assert.ThrowsAsync<TaskCanceledException>(async () =>
+            {
+                var o = await client.GetCinemas("aurich", cancellationToken: cts.Token);
+            });
         }
     }
 }

@@ -12,6 +12,8 @@ The client currently supports:
 - Retrieving information for movies that are currently played / will be played at the given cinema.
 - Searching for city by giving a searchterm (e.g. a postal code)
 
+Please bear in mind [kinoheld.de](https://www.kinoheld.de) only lists cinemas that are Germany.
+
 ## Basis usage:
  
 ### Search for a cinema
@@ -42,4 +44,16 @@ You can use dynamic queries to only get back the information you need. That way 
 IKinoheldClient client = new KinoheldClient();
 var dynamicQuery = GetCinemasDynamicQuery.Id | GetCinemasDynamicQuery.Name;
 var cinemas = await client.GetCinemas("aurich", dynamicQuery: dynamicQuery);
+```
+
+### Cancellation
+
+The client currently supports basic cancellation.
+
+```cs
+var cts = new CancellationTokenSource();
+IKinoheldClient client = new KinoheldClient();
+var cinemas = await client.GetCinemas("aurich", cancellationToken: cts.Token);
+// ...
+cts.Cancel();
 ```

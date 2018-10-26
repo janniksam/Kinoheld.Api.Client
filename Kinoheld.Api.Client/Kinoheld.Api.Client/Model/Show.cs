@@ -5,6 +5,9 @@ namespace Kinoheld.Api.Client.Model
 {
     public class Show
     {
+        [JsonProperty("id")]
+        public long Id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -22,7 +25,7 @@ namespace Kinoheld.Api.Client.Model
 
         public override string ToString()
         {
-            return $"{Name} ({Beginning?.Formatted})";
+            return $"{Name} ({Beginning?.Timestamp})";
         }
     }
 }

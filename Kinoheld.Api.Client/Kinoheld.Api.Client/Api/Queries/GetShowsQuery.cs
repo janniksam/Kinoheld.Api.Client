@@ -8,11 +8,11 @@ namespace Kinoheld.Api.Client.Api.Queries
 {
     public class GetShowsQuery : BaseGraphQlRequest
     {
-        private readonly int m_cinemaId;
+        private readonly long m_cinemaId;
         private readonly DateTime? m_date;
         private readonly GetShowsDynamicQuery m_dynamicQuery;
 
-        public GetShowsQuery(int cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
+        public GetShowsQuery(long cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery)
         {
             m_cinemaId = cinemaId;
             m_date = date;
@@ -37,6 +37,12 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             }
 
             var builder = new StringBuilder();
+
+            if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Id))
+            {
+                builder.AppendLine("            id");
+            }
+
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Name))
             {
                 builder.AppendLine("            name");
@@ -45,7 +51,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.Beginning))
             {
                 builder.AppendLine("            beginning {");
-                builder.AppendLine("                formatted");
+                builder.AppendLine("                timestamp");
                 builder.AppendLine("            }");
             }
 
@@ -66,6 +72,8 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.MovieInfo))
             {
                 builder.AppendLine("            movie {");
+                builder.AppendLine("                id");
+                builder.AppendLine("                title");
                 builder.AppendLine("                genres {");
                 builder.AppendLine("                    name");
                 builder.AppendLine("                }");
@@ -78,9 +86,10 @@ query SearchShow($cinemaId: ID!, $date: String!) {
         private string QueryPartFullResponse()
         {
             var builder = new StringBuilder();
+            builder.AppendLine("            id");
             builder.AppendLine("            name");
             builder.AppendLine("            beginning {");
-            builder.AppendLine("                formatted");
+            builder.AppendLine("                timestamp");
             builder.AppendLine("            }");
             builder.AppendLine("            flags {");
             builder.AppendLine("                name");
@@ -89,6 +98,8 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("                absoluteUrl");
             builder.AppendLine("            }");
             builder.AppendLine("            movie {");
+            builder.AppendLine("                id");
+            builder.AppendLine("                title");
             builder.AppendLine("                genres {");
             builder.AppendLine("                    name");
             builder.AppendLine("                }");
@@ -106,7 +117,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             return new
             {
                 cinemaId = m_cinemaId,
-                date = m_date?.ToShortDateString() ?? string.Empty
+                date = m_date?.ToString("yyyy-MM-dd") ?? string.Empty
             };
         }
 
