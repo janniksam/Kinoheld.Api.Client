@@ -33,10 +33,11 @@ namespace Kinoheld.Api.Client
             string city, 
             string searchTerm = "",
             int distance = 15, 
+            int limit = 5,
             GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance, dynamicQuery, cancellationToken).ConfigureAwait(false);
+            var jsonResult = await m_client.GetCinemas(city, searchTerm, distance, limit, dynamicQuery, cancellationToken).ConfigureAwait(false);
             if (jsonResult == null)
             {
                 return new Cinema[0];

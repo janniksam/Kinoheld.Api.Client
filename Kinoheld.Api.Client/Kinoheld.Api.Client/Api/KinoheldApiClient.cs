@@ -18,8 +18,13 @@ namespace Kinoheld.Api.Client.Api
         private const string KinoheldEndpoint = "https://graph.kinoheld.de/graphql/v1/query";
         private const string ResponseTypeApplicationJson = "application/json";
 
-        public async Task<JObject> GetCinemas(string city, string searchTerm, int distance,
-            GetCinemasDynamicQuery dynamicQuery, CancellationToken cancellationToken)
+        public async Task<JObject> GetCinemas(
+            string city, 
+            string searchTerm, 
+            int distance, 
+            int limit,
+            GetCinemasDynamicQuery dynamicQuery,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(city?.Trim()))
             {
@@ -32,7 +37,13 @@ namespace Kinoheld.Api.Client.Api
                     $"{nameof(distance)} needs to be bigger than 0");
             }
 
-            var query = new GetCinemasQuery(searchTerm, city, distance, dynamicQuery);
+            if (limit <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(limit),
+                    $"{nameof(limit)} needs to be bigger than 0");
+            }
+
+            var query = new GetCinemasQuery(searchTerm, city, distance, limit, dynamicQuery);
             var request = BuildRestRequest(query.BuildRequest());
             var client = CreateClient();
             var response = await client.ExecutePostTaskAsync<GraphQLResponse>(request, cancellationToken).ConfigureAwait(false);

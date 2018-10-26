@@ -14,7 +14,7 @@ namespace Kinoheld.Api.Client.Tests.Api
         public async Task GetCinemas_ReturnsSomeCinemas()
         {
             IKinoheldApiClient client = new KinoheldApiClient();
-            var cinemas = await client.GetCinemas("aurich", string.Empty, 15, GetCinemasDynamicQuery.Full, CancellationToken.None);
+            var cinemas = await client.GetCinemas("aurich", string.Empty, 15, 5, GetCinemasDynamicQuery.Full, CancellationToken.None);
             Assert.IsNotNull(cinemas);
         }
 
@@ -86,7 +86,7 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<TaskCanceledException>(async () =>
             {
-                var o = await client.GetCinemas("aurich", null, 10, GetCinemasDynamicQuery.Full, cts.Token);
+                var o = await client.GetCinemas("aurich", null, 10, 5, GetCinemasDynamicQuery.Full, cts.Token);
             });
         }
     }

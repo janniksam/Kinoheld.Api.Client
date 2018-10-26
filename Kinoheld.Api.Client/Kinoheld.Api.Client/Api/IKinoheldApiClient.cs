@@ -8,7 +8,7 @@ namespace Kinoheld.Api.Client.Api
 {
     public interface IKinoheldApiClient
     {
-        Task<JObject> GetCinemas(string city, string searchTerm, int distance, GetCinemasDynamicQuery dynamicQuery, CancellationToken cancellationToken);
+        Task<JObject> GetCinemas(string city, string searchTerm, int distance, int limit, GetCinemasDynamicQuery dynamicQuery, CancellationToken cancellationToken);
 
         Task<JObject> GetShows(long cinemaId, DateTime? date, GetShowsDynamicQuery dynamicQuery, CancellationToken cancellationToken);
 

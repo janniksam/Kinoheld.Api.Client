@@ -9,13 +9,15 @@ namespace Kinoheld.Api.Client.Api.Queries
         private readonly string m_searchTerm;
         private readonly string m_city;
         private readonly int m_distance;
+        private readonly int m_limit;
         private readonly GetCinemasDynamicQuery m_dynamicQuery;
 
-        public GetCinemasQuery(string searchTerm, string city, int distance, GetCinemasDynamicQuery dynamicQuery)
+        public GetCinemasQuery(string searchTerm, string city, int distance, int limit, GetCinemasDynamicQuery dynamicQuery)
         {
             m_searchTerm = searchTerm;
             m_city = city;
             m_distance = distance;
+            m_limit = limit;
             m_dynamicQuery = dynamicQuery;
         }
 
@@ -101,7 +103,8 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int) {
             {
                 searchTerm = m_searchTerm,
                 location = m_city,
-                distance = m_distance
+                distance = m_distance,
+                limit = m_limit
             };
         }
 

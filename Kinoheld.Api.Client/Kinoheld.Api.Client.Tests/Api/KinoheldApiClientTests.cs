@@ -15,11 +15,11 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var o = await client.GetCinemas(null, null, 15, GetCinemasDynamicQuery.Full, CancellationToken.None);
+                var o = await client.GetCinemas(null, null, 15, 5, GetCinemasDynamicQuery.Full, CancellationToken.None);
             });
             Assert.ThrowsAsync<ArgumentNullException>(async () =>
             {
-                var o = await client.GetCinemas(string.Empty, null, 15, GetCinemasDynamicQuery.Full, CancellationToken.None);
+                var o = await client.GetCinemas(string.Empty, null, 15, 5, GetCinemasDynamicQuery.Full, CancellationToken.None);
             });
         }
 
@@ -29,11 +29,25 @@ namespace Kinoheld.Api.Client.Tests.Api
             IKinoheldApiClient client = new KinoheldApiClient();
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetCinemas("aurich", null, -1, GetCinemasDynamicQuery.Full, CancellationToken.None);
+                var o = await client.GetCinemas("aurich", null, -1, 5, GetCinemasDynamicQuery.Full, CancellationToken.None);
             });
             Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
             {
-                var o = await client.GetCinemas("aurich", null, 0, GetCinemasDynamicQuery.Full, CancellationToken.None);
+                var o = await client.GetCinemas("aurich", null, 0, 5, GetCinemasDynamicQuery.Full, CancellationToken.None);
+            });
+        }
+
+        [Test]
+        public void GetCinemas_ThrowsWhenLimitSmallerOrEqual0()
+        {
+            IKinoheldApiClient client = new KinoheldApiClient();
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                var o = await client.GetCinemas("aurich", null, 1, 0, GetCinemasDynamicQuery.Full, CancellationToken.None);
+            });
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () =>
+            {
+                var o = await client.GetCinemas("aurich", null, 1, -1, GetCinemasDynamicQuery.Full, CancellationToken.None);
             });
         }
 

@@ -17,10 +17,11 @@ namespace Kinoheld.Api.Client
         /// <param name="city">A city in which the cinema is located</param>
         /// <param name="searchTerm">A searchterm (e.g. Autokino)</param>
         /// <param name="distance">Maximum distance in kilometers to search the cinema in</param>
+        /// <param name="limit">Maximum number of results</param>
         /// <param name="dynamicQuery"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>List of all matching cinemas</returns>
-        Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15, GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full, CancellationToken cancellationToken = default(CancellationToken));
+        Task<IEnumerable<Cinema>> GetCinemas(string city, string searchTerm = "", int distance = 15, int limit = 5, GetCinemasDynamicQuery dynamicQuery = GetCinemasDynamicQuery.Full, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Get the cinemas matching the given criteria
