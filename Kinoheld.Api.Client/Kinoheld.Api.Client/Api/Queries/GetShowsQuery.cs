@@ -74,6 +74,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
                 builder.AppendLine("            movie {");
                 builder.AppendLine("                id");
                 builder.AppendLine("                title");
+                builder.AppendLine("                description");
                 builder.AppendLine("                genres {");
                 builder.AppendLine("                    name");
                 builder.AppendLine("                }");
@@ -100,6 +101,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("            movie {");
             builder.AppendLine("                id");
             builder.AppendLine("                title");
+            builder.AppendLine("                description");
             builder.AppendLine("                genres {");
             builder.AppendLine("                    name");
             builder.AppendLine("                }");
