@@ -21,6 +21,6 @@ namespace Kinoheld.Api.Client.Model
         public double? Distance { get; set; }
 
         [JsonProperty("detailUrl")]
-        public DetailUrl DetailUrl { get; set; }
+        public Url DetailUrl { get; set; }
     }
 }

@@ -14,6 +14,9 @@ namespace Kinoheld.Api.Client.Model
         [JsonProperty("description")]
         public string Description { get; set; }
 
+        [JsonProperty("thumb")]
+        public Image[] ThumbnailImage { get; set; }
+
         [JsonProperty("genres")]
         public List<Genre> Genres { get; set; }
     }

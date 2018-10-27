@@ -78,6 +78,13 @@ query SearchShow($cinemaId: ID!, $date: String!) {
                 builder.AppendLine("                genres {");
                 builder.AppendLine("                    name");
                 builder.AppendLine("                }");
+                builder.AppendLine("                thumb {");
+                builder.AppendLine("                    url {");
+                builder.AppendLine("                        absoluteUrl");
+                builder.AppendLine("                    }");
+                builder.AppendLine("                    height");
+                builder.AppendLine("                    width");
+                builder.AppendLine("                }");
                 builder.AppendLine("            }");
             }
 
@@ -104,6 +111,13 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("                description");
             builder.AppendLine("                genres {");
             builder.AppendLine("                    name");
+            builder.AppendLine("                }");
+            builder.AppendLine("                thumb {");
+            builder.AppendLine("                    url {");
+            builder.AppendLine("                        absoluteUrl");
+            builder.AppendLine("                    }");
+            builder.AppendLine("                    height");
+            builder.AppendLine("                    width");
             builder.AppendLine("                }");
             builder.AppendLine("            }");
             return builder.ToString();
