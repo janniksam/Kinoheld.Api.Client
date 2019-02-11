@@ -15,7 +15,7 @@ namespace Kinoheld.Api.Client.Model
         public ShowTime Beginning { get; set; }
 
         [JsonProperty("detailUrl")]
-        public DetailUrl DetailUrl { get; set; }
+        public Url DetailUrl { get; set; }
 
         [JsonProperty("movie")]
         public MovieInfo MovieInfo { get; set; }
