@@ -6,7 +6,7 @@ namespace Kinoheld.Api.Client.Model
     public class MovieInfo
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
