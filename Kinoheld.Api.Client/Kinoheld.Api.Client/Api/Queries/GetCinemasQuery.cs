@@ -69,7 +69,7 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int, $lim
             if (m_dynamicQuery.HasFlag(GetCinemasDynamicQuery.DetailUrl))
             {
                 builder.AppendLine("            detailUrl {");
-                builder.AppendLine("                absoluteUrl");
+                builder.AppendLine("                url");
                 builder.AppendLine("            }");
             }
 
@@ -87,7 +87,7 @@ query CinemaSearch($searchTerm: String!, $location: String, $distance: Int, $lim
             builder.AppendLine("            }");
             builder.AppendLine("            distance");
             builder.AppendLine("            detailUrl {");
-            builder.AppendLine("                absoluteUrl");
+            builder.AppendLine("                url");
             builder.AppendLine("            }");
             return builder.ToString();
         }

@@ -21,7 +21,7 @@ query SearchCities($searchTerm: String!, $limit: Int) {
      name
      detailUrl
      {              
-         relativeUrl
+         url
      }
    }          
    postcodes(search: $searchTerm, limit: $limit) {
@@ -30,7 +30,7 @@ query SearchCities($searchTerm: String!, $limit: Int) {
               name
               detailUrl 
               {
-                relativeUrl
+                url
               }  
           }  
    }    

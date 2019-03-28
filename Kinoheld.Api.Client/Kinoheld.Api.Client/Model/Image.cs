@@ -11,6 +11,6 @@ namespace Kinoheld.Api.Client.Model
         public int Width { get; set; }
 
         [JsonProperty("url")]
-        public Url Url { get; set; }
+        public string Url { get; set; }
     }
 }

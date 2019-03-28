@@ -4,7 +4,7 @@ namespace Kinoheld.Api.Client.Model
 {
     public class Url
     {
-        [JsonProperty("absoluteUrl")]
+        [JsonProperty("url")]
         public string AbsoluteUrl { get; set; }
     }
 }

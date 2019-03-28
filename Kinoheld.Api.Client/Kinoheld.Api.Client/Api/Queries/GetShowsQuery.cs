@@ -65,7 +65,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             if (m_dynamicQuery.HasFlag(GetShowsDynamicQuery.DetailUrl))
             {
                 builder.AppendLine("            detailUrl {");
-                builder.AppendLine("                absoluteUrl");
+                builder.AppendLine("                url");
                 builder.AppendLine("            }");
             }
 
@@ -79,9 +79,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
                 builder.AppendLine("                    name");
                 builder.AppendLine("                }");
                 builder.AppendLine("                thumb {");
-                builder.AppendLine("                    url {");
-                builder.AppendLine("                        absoluteUrl");
-                builder.AppendLine("                    }");
+                builder.AppendLine("                    url");
                 builder.AppendLine("                    height");
                 builder.AppendLine("                    width");
                 builder.AppendLine("                }");
@@ -103,7 +101,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("                name");
             builder.AppendLine("            }");
             builder.AppendLine("            detailUrl {");
-            builder.AppendLine("                absoluteUrl");
+            builder.AppendLine("                url");
             builder.AppendLine("            }");
             builder.AppendLine("            movie {");
             builder.AppendLine("                id");
@@ -113,9 +111,7 @@ query SearchShow($cinemaId: ID!, $date: String!) {
             builder.AppendLine("                    name");
             builder.AppendLine("                }");
             builder.AppendLine("                thumb {");
-            builder.AppendLine("                    url {");
-            builder.AppendLine("                        absoluteUrl");
-            builder.AppendLine("                    }");
+            builder.AppendLine("                    url");
             builder.AppendLine("                    height");
             builder.AppendLine("                    width");
             builder.AppendLine("                }");
